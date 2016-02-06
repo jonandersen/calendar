@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'Calendar_Example', :exclusive => true do
+target 'Calendar_Example' do
   pod 'Calendar', :path => '../'
 end
 
-target 'Calendar_Tests', :exclusive => true do
+target 'Calendar_Tests'  do
   pod 'Calendar', :path => '../'
 
   pod 'Quick', '~> 0.8.0'

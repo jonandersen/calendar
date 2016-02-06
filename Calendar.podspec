@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
+  Simple collectionview based calendar
                        DESC
 
   s.homepage         = "https://github.com/<GITHUB_USERNAME>/Calendar"
@@ -31,7 +32,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Pod/Classes/**/*'
   s.resource_bundles = {
-    'Calendar' => ['Pod/Assets/*.png']
+    'Calendar' => ['Pod/Assets/*.xib']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

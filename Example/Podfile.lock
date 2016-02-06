@@ -1,0 +1,22 @@
+PODS:
+  - Calendar (0.1.0)
+  - Nimble (3.0.0)
+  - Quick (0.8.0)
+
+DEPENDENCIES:
+  - Calendar (from `../`)
+  - Nimble (= 3.0.0)
+  - Quick (~> 0.8.0)
+
+EXTERNAL SOURCES:
+  Calendar:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Calendar: 7de4cd35293e90e488895290cb68b55dba74d52d
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+
+PODFILE CHECKSUM: cd5cae3376a2b66ba35b3f6df4f64494eca5e51e
+
+COCOAPODS: 1.0.0.beta.3
