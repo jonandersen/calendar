@@ -26,6 +26,10 @@ public class CalendarDateCell : UICollectionViewCell {
         imageView.clipsToBounds = true
         self.layer.shouldRasterize = true;
         self.layer.rasterizationScale = UIScreen.mainScreen().scale;
+        
+        self.circleView.hidden = true
+        self.textLabel.hidden = true
+        self.imageView.hidden = true
     }
     
     public override func layoutSubviews() {

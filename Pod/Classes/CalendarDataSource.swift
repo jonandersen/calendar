@@ -73,14 +73,14 @@ class CalendarDataSourceManager {
         let firstDayInMonth = dateForFirstDayInMonth(self.numberOfMonths() - 1)
         let monthDifference = 12 * (firstDayInMonth.year - date.year) + (firstDayInMonth.month - date.month)
         
-        let currentMonth  = monthDifference + 2
+        let month  = self.numberOfMonths() - monthDifference - 1
         
         
-        let startIndexAdd = (0...15).map{self.calendarDateForMonth(currentMonth - 1, dayIndex: $0)}
+        let startIndexAdd = (0...15).map{self.calendarDateForMonth(month, dayIndex: $0)}
             .filter{$0.isFromAnotherMonth}.count
         
         
-        return NSIndexPath(forItem: startIndexAdd + date.day - 1, inSection: currentMonth - 1)
+        return NSIndexPath(forItem: startIndexAdd + date.day - 1, inSection: month)
     }
     
     
