@@ -17,13 +17,13 @@ public protocol CalendarDataSource : class{
 public protocol CalendarDelegate : class{
     func calendarExpand()
     func calendarContract()
-
+    
 }
 
 
 public class Calendar: UIView {
     
-
+    
     public let calendarCollectionView: UICollectionView!
     
     private  var calendarManager: CalendarManager!
@@ -42,13 +42,13 @@ public class Calendar: UIView {
     public func reloadData() {
         calendarCollectionView.reloadData()
     }
-
+    
     public required override init(frame: CGRect) {
         calendarCollectionView = UICollectionView(frame: frame, collectionViewLayout:  CalendarLayout())
         
         super.init(frame: frame)
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         calendarCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout:  CalendarLayout())
         super.init(coder: aDecoder)
@@ -69,22 +69,30 @@ public class Calendar: UIView {
         
         let calendarDataSource = CalendarDataSourceManager(today: NSDate())
         
-        let bundle = NSBundle(forClass: self.classForCoder)
-        self.calendarCollectionView.registerNib(UINib(nibName: "CalendarDateCell", bundle: bundle), forCellWithReuseIdentifier: CalendarDateCell.identifier)
-        self.calendarCollectionView.registerNib(UINib(nibName: "CalendarMonthHeader", bundle: bundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CalendarMonthHeader.identifer)
+        let calendarFrameworkBundle = NSBundle(forClass: Calendar.self)
+        let bundlePath = calendarFrameworkBundle.pathForResource("Calendar", ofType: "bundle")!
+        let calendarResourceBundle = NSBundle(path: bundlePath)!
+        
+        
+        
+        self.calendarCollectionView.registerNib(UINib(nibName: "CalendarDateCell", bundle: calendarResourceBundle), forCellWithReuseIdentifier: CalendarDateCell.identifier)
+        self.calendarCollectionView.registerNib(UINib(nibName: "CalendarMonthHeader", bundle: calendarResourceBundle), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CalendarMonthHeader.identifer)
         if let layout = self.calendarCollectionView.collectionViewLayout as? CalendarLayout {
             layout.headerReferenceSize = CGSizeMake(self.frame.width, CalendarMonthHeader.height)
         }
         
         calendarManager = CalendarManager(collectionView: self.calendarCollectionView, calendarDataSource: calendarDataSource)
-
+        
     }
-
-
     
-  
+    
+    public func selectDate(calendarDate: CalendarDate) {
+        self.calendarManager.selectDate(calendarDate)
+    }
+    
+    
     public func selectToday() {
-        self.calendarManager.selectToday()
+        self.calendarManager.selectDate(CalendarDate.fromDate(NSDate(), calendar: NSCalendar.currentCalendar()))
     }
     
 }

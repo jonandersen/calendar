@@ -18,7 +18,7 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
     
     weak var dataSource:  CalendarDataSource?
     weak var delegate:  CalendarDelegate?
-
+    
     private let collectionView:  UICollectionView
     private let dateFormatter = NSDateFormatter()
     
@@ -33,10 +33,10 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
     }
     
     
-
-  
+    
+    
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-
+        
         
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: CalendarMonthHeader.identifer, forIndexPath: indexPath) as! CalendarMonthHeader
         
@@ -44,45 +44,49 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         
         let hidden = (0...6).map{self.calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: $0)}.filter{$0.isFromAnotherMonth}
         let padding: CGFloat = CGFloat(hidden.count) * (collectionView.frame.width / numberOfItemsPerRow)
-            
+        
         header.monthLabel.text = "\(dateFormatter.shortMonthSymbols[calendarDate.month - 1])"
         header.monthLabel.textColor = UIColor.blackColor()
         header.leadingConstraint.constant = padding
-    
+        
         return header
     }
     
-    func selectToday() {
-        let todayIndexPath = calendarDataSource.currentDateIndex()
-        collectionView.scrollToItemAtIndexPath(todayIndexPath, atScrollPosition: .CenteredVertically , animated: false)
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+    
+    func selectDate(calendarDate: CalendarDate) {
+        let index = calendarDataSource.indexForDate(calendarDate)
+        collectionView.scrollToItemAtIndexPath(index, atScrollPosition: .CenteredVertically , animated: false)
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
-            self.collectionView(self.collectionView, didSelectItemAtIndexPath: todayIndexPath)
+            self.collectionView(self.collectionView, didSelectItemAtIndexPath: index)
         }
     }
     
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return calendarDataSource.numberOfMonths() 
+        return calendarDataSource.numberOfMonths()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return 7 * calendarDataSource.numberOfWeeksInMonth(section)
     }
-
+    
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CalendarDateCell.identifier, forIndexPath: indexPath) as! CalendarDateCell
-
-
+        
+        
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-
+        
         let calendarDate = calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: indexPath.item)
         dataSource?.calendarBuildCell(cell, calendarDate: calendarDate)
+        cell.accessibilityIdentifier = calendarDate.identifier()
+        
         
         CATransaction.commit()
-
-
+        
+        
         return cell
     }
     
@@ -101,12 +105,12 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
     
     private var startContentOffset: CGFloat = 0.0
     private var lastContentOffset: CGFloat = 0.0
-
+    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         startContentOffset = scrollView.contentOffset.y
         lastContentOffset = scrollView.contentOffset.y
     }
-
+    
     private func handleScroll(scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let differenceFromStart = startContentOffset - currentOffset
@@ -143,7 +147,7 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         let layout = collectionView.collectionViewLayout as! CalendarLayout
         layout.isInsertingCellsToTop = true
         layout.contentSizeWhenInsertingToTop = collectionView.contentSize
-    
+        
         UIView.performWithoutAnimation { () -> Void in
             UIView.setAnimationsEnabled(false)
             self.collectionView.performBatchUpdates({ () -> Void in
@@ -157,7 +161,7 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-
+    
     
     
     
@@ -186,5 +190,5 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         return 0
     }
     
-
+    
 }

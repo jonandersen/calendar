@@ -45,7 +45,7 @@ class CalendarDataSourceManager {
         
     }
     
- 
+    
     func numberOfMonths() -> Int {
         let monthDifference = self.toDate.month - self.fromDate.month + 1
         if(self.toDate.year == self.fromDate.year) {
@@ -58,23 +58,38 @@ class CalendarDataSourceManager {
     
     func currentDateIndex() -> NSIndexPath {
         
-        let currentMonth  = self.numberOfMonths() - 1//always have one extra month
+        let currentMonth  = self.numberOfMonths() - 1
         let todayComponenets = calendar.components(.Day, fromDate: NSDate())
         
         
         let startIndexAdd = (0...15).map{self.calendarDateForMonth(currentMonth - 1, dayIndex: $0)}
             .filter{$0.isFromAnotherMonth}.count
-
+        
         
         return NSIndexPath(forItem: startIndexAdd + todayComponenets.day - 1, inSection: currentMonth - 1)
     }
     
-
+    func indexForDate(date: CalendarDate) -> NSIndexPath {
+        let firstDayInMonth = dateForFirstDayInMonth(self.numberOfMonths() - 1)
+        let monthDifference = 12 * (firstDayInMonth.year - date.year) + (firstDayInMonth.month - date.month)
+        
+        let currentMonth  = monthDifference + 2
+        
+        
+        let startIndexAdd = (0...15).map{self.calendarDateForMonth(currentMonth - 1, dayIndex: $0)}
+            .filter{$0.isFromAnotherMonth}.count
+        
+        
+        return NSIndexPath(forItem: startIndexAdd + date.day - 1, inSection: currentMonth - 1)
+    }
+    
+    
+    
     func numberOfWeeksInMonth(month: Int) -> Int {
         return dateManager.numberOfWeeksInMonth(dateForFirstDayInMonth(month))
     }
     
- 
+    
     
     func calendarDateForMonth(monthIndex: Int, dayIndex: Int) -> CalendarDate {
         let firstDayInMonth = dateForFirstDayInMonth(monthIndex)

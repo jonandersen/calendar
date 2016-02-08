@@ -15,12 +15,23 @@ public struct CalendarDate {
     public let day: Int
     
     public let isFromAnotherMonth: Bool
-
+    
     private static let componentsToday = NSCalendar.currentCalendar().components([.Year, .Month, .WeekOfYear, .Day], fromDate: NSDate())
     
     public static func empty() -> CalendarDate {
         return CalendarDate(year: 0, month: 0, week: 0, day: 0, isFromAnotherMonth: false)
     }
+    
+    
+    
+    public init(year: Int, month: Int, week: Int = 0, day: Int, isFromAnotherMonth: Bool = false){
+        self.year = year
+        self.month = month
+        self.week = week
+        self.day = day
+        self.isFromAnotherMonth = isFromAnotherMonth
+    }
+    
     
     public static func fromDate(date: NSDate, calendar: NSCalendar, isFromAnotherMonth: Bool = false) -> CalendarDate {
         let components = calendar.components([.Year, .Month, .WeekOfYear, .Day], fromDate: date)
@@ -67,7 +78,7 @@ public struct CalendarDate {
     public func isToday() -> Bool {
         return CalendarDate.componentsToday.day == self.day && isThisWeek()
     }
-
+    
 }
 
 extension CalendarDate : Equatable {}

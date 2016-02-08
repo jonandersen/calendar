@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Calendar"
-  s.version          = "0.1.0"
+  s.version          = "0.1.2"
   s.summary          = "A short description of Calendar."
 
 # This description is used to generate tags and improve search results.
@@ -20,11 +20,11 @@ Pod::Spec.new do |s|
   Simple collectionview based calendar
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/Calendar"
+  s.homepage         = "https://github.com/jonandersen/Calendar"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Jon Andersen" => "jon@andersen.re" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/Calendar.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/jonandersen/Calendar.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
@@ -36,6 +36,6 @@ Pod::Spec.new do |s|
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
