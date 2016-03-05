@@ -53,13 +53,9 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
     }
     
     
-    func selectDate(calendarDate: CalendarDate) {
+    func scrollToDate(calendarDate: CalendarDate) {
         let index = calendarDataSource.indexForDate(calendarDate)
         collectionView.scrollToItemAtIndexPath(index, atScrollPosition: .CenteredVertically , animated: false)
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            self.collectionView(self.collectionView, didSelectItemAtIndexPath: index)
-        }
     }
     
     

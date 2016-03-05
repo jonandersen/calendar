@@ -13,6 +13,10 @@ public struct CalendarDate {
     public let month: Int
     public let week: Int
     public let day: Int
+    private let description: String
+    private let date: NSDate
+    public let components = NSDateComponents()
+    
     
     public let isFromAnotherMonth: Bool
     
@@ -30,6 +34,11 @@ public struct CalendarDate {
         self.week = week
         self.day = day
         self.isFromAnotherMonth = isFromAnotherMonth
+        self.description = "\(year)-\(month)-\(day)"
+        components.year = year
+        components.month = month
+        components.day = day
+        self.date = NSCalendar.currentCalendar().dateFromComponents(components)!
     }
     
     
@@ -38,21 +47,13 @@ public struct CalendarDate {
         return CalendarDate(year: components.year, month: components.month, week: components.weekOfYear, day: components.day, isFromAnotherMonth: isFromAnotherMonth)
     }
     
-    public func components() -> NSDateComponents {
-        let components = NSDateComponents()
-        components.year = year
-        components.month = month
-        components.day = day
-        return components
-    }
     
     public func date(calendar: NSCalendar) -> NSDate {
-        //TODO GUARD
-        return calendar.dateFromComponents(self.components())!
+        return date
     }
     
     public func identifier() -> String {
-        return "\(year)-\(month)-\(day)"
+        return description
     }
     
     public func isSameYear(date: CalendarDate) -> Bool {

@@ -119,7 +119,7 @@ class CalendarDataSourceManager {
     
     
     private func dateFromCalendarDate(calendarDate: CalendarDate) -> NSDate {
-        return calendar.dateFromComponents(calendarDate.components())! //TODO GUARD
+        return calendar.dateFromComponents(calendarDate.components)! //TODO GUARD
     }
     
     private func dateForFirstDayInMonth(month: Int) -> CalendarDate {

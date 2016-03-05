@@ -86,13 +86,13 @@ public class Calendar: UIView {
     }
     
     
-    public func selectDate(calendarDate: CalendarDate) {
-        self.calendarManager.selectDate(calendarDate)
+    public func scrollToDate(calendarDate: CalendarDate) {
+        self.calendarManager.scrollToDate(calendarDate)
     }
     
     
-    public func selectToday() {
-        self.calendarManager.selectDate(CalendarDate.fromDate(NSDate(), calendar: NSCalendar.currentCalendar()))
+    public func scrollToDate() {
+        self.calendarManager.scrollToDate(CalendarDate.fromDate(NSDate(), calendar: NSCalendar.currentCalendar()))
     }
     
 }

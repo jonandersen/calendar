@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Calendar"
-  s.version          = "0.1.2"
+  s.version          = "0.2.0"
   s.summary          = "A short description of Calendar."
 
 # This description is used to generate tags and improve search results.
