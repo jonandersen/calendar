@@ -12,9 +12,9 @@ import Nimble
 
 @testable import Calendar
 
-class CalendarDataSourceTests: XCTestCase {
+class CalendarDataSourceManagerTests: XCTestCase {
     
-    private var sut: CalendarDataSource!
+    private var sut: CalendarDataSourceManager!
     let calendarDate = CalendarDate(year: 2016, month: 1, day: 15)
     
     
@@ -26,7 +26,7 @@ class CalendarDataSourceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        sut = CalendarDataSource(batchSize: 30, today: calendarDate.date(NSCalendar.currentCalendar()))
+        sut = CalendarDataSourceManager(today: calendarDate.date(NSCalendar.currentCalendar()))
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -75,13 +75,6 @@ class CalendarDataSourceTests: XCTestCase {
         expect(date.month).to(equal(2))
         expect(date.year).to(equal(2016))
     }
-    
-    
-    func testIndexIsInMonth() {
-        expect(self.sut.indexIsInMonth(0, month: 1)).to(equal(false)) //0 -> 2015-27-12
-        expect(self.sut.indexIsInMonth(5, month: 1)).to(equal(true)) //5 -> 2016-01-01
-        
-        
-    }
+
     
 }
