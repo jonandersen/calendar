@@ -1,29 +1,50 @@
-# Calendar
+Calendar
+============
+[![Twitter: @FastlaneTools](https://img.shields.io/badge/contact-@FastlaneTools-blue.svg?style=flat)](https://twitter.com/Andersen_Jon)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/jonandersen/calendar/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/jonandersen/calendar.svg?branch=master)](https://travis-ci.org/jonandersen/calendar)
 
-[![CI Status](http://img.shields.io/travis/Jon Andersen/Calendar.svg?style=flat)](https://travis-ci.org/Jon Andersen/Calendar)
-[![Version](https://img.shields.io/cocoapods/v/Calendar.svg?style=flat)](http://cocoapods.org/pods/Calendar)
-[![License](https://img.shields.io/cocoapods/l/Calendar.svg?style=flat)](http://cocoapods.org/pods/Calendar)
-[![Platform](https://img.shields.io/cocoapods/p/Calendar.svg?style=flat)](http://cocoapods.org/pods/Calendar)
 
-## Usage
+######*Calendar*  is a collection view based calendar used in the app [Leap Second](https://itunes.apple.com/us/app/leap-second/id1021405859?mt=8)
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+
+-------
+<p align="center">
+    <a href="#installation">Installation</a> &bull;
+    <a href="#quick-start">Quick Start</a> &bull;
+    <a href="#features">Features</a> &bull;
+    <a href="#need-help">Need help?</a>
+</p>
+
+-------
+
+
+
 
 ## Installation
+#### Cocoa Pods
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. To install Static with CocoaPods:
 
-Calendar is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Make sure CocoaPods is installed (Calendar requires version 0.37 or greater).
+
+Update your Podfile to include the following:
 
 ```ruby
-pod "Calendar"
+use_frameworks!
+pod 'Calendar', git: 'https://github.com/jonandersen/Calendar'
 ```
 
-## Author
+Run `pod install`.
 
-Jon Andersen, jon@andersen.re
 
-## License
+## Quick Start
 
-Calendar is available under the MIT license. See the LICENSE file for more info.
+
+## Features
+
+## Need help?
+
+
+
+
