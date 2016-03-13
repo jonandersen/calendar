@@ -1,6 +1,6 @@
 Calendar
 ============
-[![Twitter: @Andersen_Jon](https://img.shields.io/badge/contact-@FastlaneTools-blue.svg?style=flat)](https://twitter.com/Andersen_Jon)
+[![Twitter: @Andersen_Jon](https://img.shields.io/badge/contact-@Andersen_Jon-blue.svg?style=flat)](https://twitter.com/Andersen_Jon)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/jonandersen/calendar/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/jonandersen/calendar.svg?branch=master)](https://travis-ci.org/jonandersen/calendar)
 
