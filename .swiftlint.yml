@@ -1,5 +1,5 @@
 excluded: # paths to ignore during linting. overridden by `included`.
-  - Example
+  - Pods
 line_length: 140
 
 disabled_rules: # rule identifiers to exclude from running
