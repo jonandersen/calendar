@@ -179,13 +179,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 056D7BD11C972659006765CA /* Build configuration list for PBXNativeTarget "Calendar" */;
 			buildPhases = (
-				3F2519A257D811E4D5ADC9C7 /* 📦 Check Pods Manifest.lock */,
 				056D7BB81C972659006765CA /* Sources */,
 				056D7BB91C972659006765CA /* Frameworks */,
 				056D7BBA1C972659006765CA /* Headers */,
 				056D7BBB1C972659006765CA /* Resources */,
-				056D7C071C972750006765CA /* ShellScript */,
-				C63C3F93D365EA6843FDBFF3 /* 📦 Copy Pods Resources */,
+				056D7C071C972750006765CA /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -206,6 +204,7 @@
 				056D7BC51C972659006765CA /* Resources */,
 				F166625279708921AAA19019 /* 📦 Embed Pods Frameworks */,
 				6AB6A9A8EB15044AE86E6894 /* 📦 Copy Pods Resources */,
+				B5EB616F129C612E071067BF /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,13 +272,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		056D7C071C972750006765CA /* ShellScript */ = {
+		056D7C071C972750006765CA /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,21 +287,6 @@
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --config .swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		05DFC8A8C9CEF3A22B54D11B /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		3F2519A257D811E4D5ADC9C7 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -331,19 +316,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CalendarTests/Pods-CalendarTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C63C3F93D365EA6843FDBFF3 /* 📦 Copy Pods Resources */ = {
+		B5EB616F129C612E071067BF /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Calendar/Pods-Calendar-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CalendarTests/Pods-CalendarTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F166625279708921AAA19019 /* 📦 Embed Pods Frameworks */ = {
