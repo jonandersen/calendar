@@ -5,6 +5,7 @@
 language: objective-c
 osx_image: xcode7.2
 script:
-  - xctool -workspace Calendar.xcworkspace -scheme Calendar build test -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  set -o pipefail
+  xcodebuild test  -workspace Calendar.xcworkspace -sdk iphonesimulator -scheme Calendar -configuration Debug -destination "platform=iOS Simulator,name=iPhone 4s" -destination "platform=iOS Simulator,name=iPhone 6 Plus" GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES | xcpretty -c  
 after_success:
   - bash <(curl -s https://codecov.io/bash)
