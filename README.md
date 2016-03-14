@@ -2,6 +2,7 @@ Calendar
 ============
 [![Twitter: @Andersen_Jon](https://img.shields.io/badge/contact-@Andersen_Jon-blue.svg?style=flat)](https://twitter.com/Andersen_Jon)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/jonandersen/calendar/blob/master/LICENSE)
+[![codecov.io](https://codecov.io/github/jonandersen/calendar/coverage.svg?branch=master)](https://codecov.io/github/jonandersen/calendar?branch=master)
 [![Build Status](https://travis-ci.org/jonandersen/calendar.svg?branch=master)](https://travis-ci.org/jonandersen/calendar)
 
 

@@ -9,13 +9,13 @@
 import UIKit
 import Calendar
 
-class ViewController: UIViewController, CalendarDataSource {
+class ViewController: UIViewController, CalendarDelegate {
 
     @IBOutlet var calendar: Calendar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        calendar.dataSource = self
+        calendar.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
 

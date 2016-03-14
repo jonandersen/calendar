@@ -16,64 +16,46 @@ class CalendarDataSourceManagerTests: XCTestCase {
     
     private var sut: CalendarDataSourceManager!
     let calendarDate = CalendarDate(year: 2016, month: 1, day: 15)
-    
-    
-    //Notes for below
-    //Month 0: -> Feburary 2016
-    //Month 1: -> January 2016
-    //Month 2: -> December 2015
-    
+
     override func setUp() {
         super.setUp()
-        
-        sut = CalendarDataSourceManager(today: calendarDate.date(NSCalendar.currentCalendar()))
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = CalendarDataSourceManager(today: calendarDate.date)
     }
-    
-    
+
     
     func testDatesWithLargeBatchSize() {
-        expect(self.sut.fromDate).to(equal(CalendarDate(year: 2015, month: 12, day: 15)))
+        expect(self.sut.fromDate).to(equal(CalendarDate(year: 2015, month: 1, day: 15)))
         expect(self.sut.toDate).to(equal(CalendarDate(year: 2016, month: 2, day: 15)))
     }
     
     
     func testNumberOfMonths() {
-        expect(self.sut.numberOfMonths()).to(equal(3))
+        expect(self.sut.numberOfMonths()).to(equal(14))
     }
     
     func testNumberOfWeeks() {
-        expect(self.sut.numberOfWeeksInMonth(1)).to(equal(6))
+        expect(self.sut.numberOfWeeksInMonth(1)).to(equal(4))
     }
-    
-//    func testGetDateMonth() {
-//        let month = self.sut.calendarDateForMonth(Int, dayIndex: <#T##Int#>)
-//        expect(month.month).to(equal(12))
-//        expect(month.year).to(equal(2015))
-//        expect(month.day).to(equal(15))
-//        expect(self.sut.calendarDateForMonth(1).month).to(equal(1))
-//        expect(self.sut.calendarDateForMonth(2).month).to(equal(2))
-//    }
     
     func testGetFirstDate() {
         let date = self.sut.calendarDateForMonth(0, dayIndex: 0)
-        expect(date.day).to(equal(29))
-        expect(date.month).to(equal(11))
-        expect(date.year).to(equal(2015))
+        expect(date.day).to(equal(28))
+        expect(date.month).to(equal(12))
+        expect(date.year).to(equal(2014))
     }
     
     func testGetFirstDateOfMonth() {
         let date = self.sut.calendarDateForMonth(1, dayIndex: 0)
-        expect(date.day).to(equal(27))
-        expect(date.month).to(equal(12))
+        expect(date.day).to(equal(1))
+        expect(date.month).to(equal(2))
         expect(date.year).to(equal(2015))
     }
     
     func testGetLastDateOfMonth() {
         let date = self.sut.calendarDateForMonth(1, dayIndex: 41)
-        expect(date.day).to(equal(6))
-        expect(date.month).to(equal(2))
-        expect(date.year).to(equal(2016))
+        expect(date.day).to(equal(14))
+        expect(date.month).to(equal(3))
+        expect(date.year).to(equal(2015))
     }
 
     

@@ -13,22 +13,18 @@ public struct CalendarDate {
     public let month: Int
     public let week: Int
     public let day: Int
-    private let description: String
-    private let date: NSDate
     public let components = NSDateComponents()
-    
-    
     public let isFromAnotherMonth: Bool
-    
-    private static let componentsToday = NSCalendar.currentCalendar().components([.Year, .Month, .WeekOfYear, .Day], fromDate: NSDate())
-    
+    public let date: NSDate
+
+    private let description: String
+    private let calendar = NSCalendar.currentCalendar()
+
     public static func empty() -> CalendarDate {
         return CalendarDate(year: 0, month: 0, week: 0, day: 0, isFromAnotherMonth: false)
     }
-    
-    
-    
-    public init(year: Int, month: Int, week: Int = 0, day: Int, isFromAnotherMonth: Bool = false){
+
+    public init(year: Int, month: Int, week: Int = 0, day: Int, isFromAnotherMonth: Bool = false) {
         self.year = year
         self.month = month
         self.week = week
@@ -40,49 +36,52 @@ public struct CalendarDate {
         components.day = day
         self.date = NSCalendar.currentCalendar().dateFromComponents(components)!
     }
-    
-    
-    public static func fromDate(date: NSDate, calendar: NSCalendar, isFromAnotherMonth: Bool = false) -> CalendarDate {
+
+    public static func fromDate(date: NSDate, isFromAnotherMonth: Bool = false) -> CalendarDate {
+        let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([.Year, .Month, .WeekOfYear, .Day], fromDate: date)
-        return CalendarDate(year: components.year, month: components.month, week: components.weekOfYear, day: components.day, isFromAnotherMonth: isFromAnotherMonth)
+        return CalendarDate(
+            year: components.year,
+            month: components.month,
+            week: components.weekOfYear,
+            day: components.day,
+            isFromAnotherMonth: isFromAnotherMonth)
     }
-    
-    
-    public func date(calendar: NSCalendar) -> NSDate {
-        return date
-    }
-    
+
     public func identifier() -> String {
         return description
     }
-    
+
     public func isSameYear(date: CalendarDate) -> Bool {
         return date.year == self.year
     }
-    
+
     public func isSameMonth(date: CalendarDate) -> Bool {
         return date.month == self.month && date.year == self.year
     }
-    
+
+    private func todayComponents() -> NSDateComponents {
+        return calendar.components([.Year, .Month, .WeekOfYear, .Day], fromDate: NSDate())
+    }
+
     public func isThisYear() -> Bool {
-        return CalendarDate.componentsToday.year == self.year
+        return todayComponents().year == self.year
     }
-    
+
     public func isThisMonth() -> Bool {
-        return CalendarDate.componentsToday.month == self.month && isThisYear()
+        return todayComponents().month == self.month && isThisYear()
     }
-    
+
     public func isThisWeek() -> Bool {
-        return CalendarDate.componentsToday.weekOfYear == self.week && isThisMonth()
+        return todayComponents().weekOfYear == self.week && isThisMonth()
     }
-    
+
     public func isToday() -> Bool {
-        return CalendarDate.componentsToday.day == self.day && isThisWeek()
+        return todayComponents().day == self.day && isThisWeek()
     }
-    
 }
 
 extension CalendarDate : Equatable {}
-public func ==(lhs: CalendarDate, rhs: CalendarDate) -> Bool {
+public func == (lhs: CalendarDate, rhs: CalendarDate) -> Bool {
     return lhs.year == rhs.year && lhs.month == rhs.month && lhs.day == rhs.day
 }
