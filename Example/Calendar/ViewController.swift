@@ -7,17 +7,29 @@
 //
 
 import UIKit
+import Calendar
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CalendarDataSource {
 
+    @IBOutlet var calendar: Calendar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        calendar.dataSource = self
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
+        
+    }
+    
+    func calendarDidSelectCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
+        
     }
 
 }

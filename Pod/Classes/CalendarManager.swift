@@ -76,6 +76,14 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         CATransaction.setDisableActions(true)
         
         let calendarDate = calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: indexPath.item)
+        cell.textLabel.text = "\(calendarDate.day)"
+        
+        if(calendarDate.isFromAnotherMonth){
+            cell.hidden = true
+        }else{
+            cell.hidden = false
+        }
+        
         dataSource?.calendarBuildCell(cell, calendarDate: calendarDate)
         cell.accessibilityIdentifier = calendarDate.identifier()
         

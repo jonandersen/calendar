@@ -28,12 +28,13 @@ public class CalendarDateCell : UICollectionViewCell {
         self.layer.rasterizationScale = UIScreen.mainScreen().scale;
         
         self.circleView.hidden = true
-        self.textLabel.hidden = true
         self.imageView.hidden = true
+        self.textLabel.textColor = UIColor.darkTextColor()
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
+        CATransaction.begin()
         var sizeCircle = min(self.frame.size.width, self.frame.size.height);
         sizeCircle = sizeCircle * circleRatio;
         sizeCircle = CGFloat(roundf(Float(sizeCircle)))
@@ -42,7 +43,6 @@ public class CalendarDateCell : UICollectionViewCell {
         circleView.center = CGPointMake(self.frame.size.width / 2.0, self.frame.size.height / 2.0)
         circleView.layer.cornerRadius = sizeCircle / 2.0
         
-        CATransaction.begin()
         imageView.frame = self.circleView.frame
         imageView.layer.cornerRadius = self.circleView.layer.cornerRadius
         CATransaction.commit()
