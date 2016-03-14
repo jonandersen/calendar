@@ -21,7 +21,6 @@
 		056D7C001C9726F5006765CA /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D7BF61C9726F5006765CA /* DateManager.swift */; };
 		056D7C041C972736006765CA /* CalendarDataSourceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D7C011C972736006765CA /* CalendarDataSourceManagerTests.swift */; };
 		056D7C061C972736006765CA /* DateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D7C031C972736006765CA /* DateManagerTests.swift */; };
-		058BC89C33FC90F7DE4969A5 /* Pods_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6958BA7CC69E5B94BF6ABFCB /* Pods_Calendar.framework */; };
 		BCD4DA300B6BBB917B9AFC4D /* Pods_CalendarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4D80FC902F10BC3B029A19 /* Pods_CalendarTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,9 +52,7 @@
 		056D7BF61C9726F5006765CA /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		056D7C011C972736006765CA /* CalendarDataSourceManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDataSourceManagerTests.swift; sourceTree = "<group>"; };
 		056D7C031C972736006765CA /* DateManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManagerTests.swift; sourceTree = "<group>"; };
-		429D968DB6121D807183DDC2 /* Pods-Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Calendar/Pods-Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		4D4D80FC902F10BC3B029A19 /* Pods_CalendarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalendarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5B3BC8FEABBC2B1BB13876F2 /* Pods-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calendar/Pods-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		6958BA7CC69E5B94BF6ABFCB /* Pods_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80BCA9D8D323F3A1F19E6C0C /* Pods-CalendarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalendarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CalendarTests/Pods-CalendarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA86781D263C4AD2D1920F13 /* Pods-CalendarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalendarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CalendarTests/Pods-CalendarTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,7 +63,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				058BC89C33FC90F7DE4969A5 /* Pods_Calendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,8 +146,6 @@
 		2AF0B4B1C1BD9A7AD5125B58 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				429D968DB6121D807183DDC2 /* Pods-Calendar.debug.xcconfig */,
-				5B3BC8FEABBC2B1BB13876F2 /* Pods-Calendar.release.xcconfig */,
 				80BCA9D8D323F3A1F19E6C0C /* Pods-CalendarTests.debug.xcconfig */,
 				EA86781D263C4AD2D1920F13 /* Pods-CalendarTests.release.xcconfig */,
 			);
@@ -496,7 +490,6 @@
 		};
 		056D7BD21C972659006765CA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 429D968DB6121D807183DDC2 /* Pods-Calendar.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
@@ -515,7 +508,6 @@
 		};
 		056D7BD31C972659006765CA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B3BC8FEABBC2B1BB13876F2 /* Pods-Calendar.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
