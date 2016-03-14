@@ -20,9 +20,6 @@ Calendar
 
 -------
 
-
-
-
 ## Installation
 #### Cocoa Pods
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. To install Static with CocoaPods:
