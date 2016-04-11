@@ -1,53 +1,22 @@
 import Foundation
 
 class CalendarDataSourceManager {
-    var fromDate: CalendarDate = CalendarDate.empty()
-    var toDate: CalendarDate = CalendarDate.empty()
+    private let startDate = NSDate(timeIntervalSince1970: 0)
     private let calendar = NSCalendar.currentCalendar()
-    private let componentsAfter: NSDateComponents
-    private let componentsBefore: NSDateComponents
-    private let batchSize: Int = 12
     private let dateManager: DateManager = DateManager()
-    private let currentDate: CalendarDate
 
     private func calendarDateComponents(date: NSDate) -> NSDateComponents {
         return calendar.components([.Day, .Month, .Year], fromDate: date)
     }
 
-    init(today: NSDate) {
-        componentsAfter =  NSDateComponents()
-        componentsAfter.month = 1
-        componentsBefore =  NSDateComponents()
-        componentsBefore.month = -self.batchSize
-        currentDate = CalendarDate.fromDate(today)
-
-        guard let now = calendar.dateFromComponents(calendarDateComponents(today)) else {
-            NSLog("ERROR can't create date from componetnes %@", calendarDateComponents(today))
-            return
-        }
-        guard let before = calendar.dateByAddingComponents(componentsBefore, toDate: now, options: []) else {
-            return
-        }
-        guard let after = calendar.dateByAddingComponents(componentsAfter, toDate: now, options: []) else {
-            return
-        }
-
-        fromDate = CalendarDate.fromDate(before)
-        toDate = CalendarDate.fromDate(after)
-    }
 
     func numberOfMonths() -> Int {
-        let monthDifference = self.toDate.month - self.fromDate.month + 1
-        if self.toDate.year == self.fromDate.year {
-            return monthDifference
-        } else {
-            let yearsDifference = self.toDate.year - self.fromDate.year
-            return yearsDifference * 12 + monthDifference
-        }
+        let months = NSDate().monthsFrom(startDate)
+        return months + 2
     }
 
     func currentDateIndex() -> NSIndexPath {
-        let currentMonth  = self.numberOfMonths() - 1
+        let currentMonth  = self.numberOfMonths() - 2
         let todayComponenets = calendar.components(.Day, fromDate: NSDate())
         let startIndexAdd = (0...15)
             .map { self.calendarDateForMonth(currentMonth - 1, dayIndex: $0) }
@@ -82,23 +51,10 @@ class CalendarDataSourceManager {
         return calendarDate
     }
 
-    func loadMoreDates() -> Int {
-        guard let date = calendar.dateByAddingComponents(componentsBefore, toDate: fromDate.date, options: []) else {
-            NSLog("Failed to load moare")
-            return 0
-        }
-        fromDate = CalendarDate.fromDate(date)
-        return self.batchSize
-    }
-
-    private func dateFromCalendarDate(calendarDate: CalendarDate) -> NSDate {
-        return calendar.dateFromComponents(calendarDate.components)!
-    }
-
     private func dateForFirstDayInMonth(month: Int) -> CalendarDate {
         let components = NSDateComponents()
         components.month = month
-        let date  = calendar.dateByAddingComponents(components, toDate: self.fromDate.date, options: [])!
+        let date  = calendar.dateByAddingComponents(components, toDate: self.startDate, options: [])!
         let firstDateComponenets = calendar.components([.Year, .Month, .Day], fromDate: date)
         firstDateComponenets.day = 1
         let firstDate = calendar.dateFromComponents(firstDateComponenets)!

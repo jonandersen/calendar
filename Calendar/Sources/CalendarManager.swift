@@ -32,14 +32,14 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(
             kind,
-            withReuseIdentifier: CalendarMonthHeader.identifer,
-            forIndexPath: indexPath) as! CalendarMonthHeader
+            withReuseIdentifier: CalendarHeader.reuseIdentifier,
+            forIndexPath: indexPath) as! CalendarHeader
         let calendarDate = calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: 12)
         let hidden = (0...6)
             .map { self.calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: $0) }
             .filter { $0.isFromAnotherMonth }
         let padding: CGFloat = CGFloat(hidden.count) * (collectionView.frame.width / numberOfItemsPerRow)
-        header.monthLabel.text = "\(dateFormatter.shortMonthSymbols[calendarDate.month - 1])"
+        header.monthLabel.text = "\(dateFormatter.shortMonthSymbols[calendarDate.month - 1]) \(calendarDate.year)"
         header.monthLabel.textColor = UIColor.blackColor()
         header.leadingConstraint.constant = padding
         return header
@@ -84,33 +84,33 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
     }
 
     //MARK : SCROLL
-
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if loadingMore || scrollView.contentOffset.y >= 0 {
-            return
-        }
-        self.loadingMore = true
-        let newMonths = self.calendarDataSource.loadMoreDates()
-        if newMonths == 0 {
-            return
-        }
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        let layout = collectionView.collectionViewLayout as! CalendarLayout
-        layout.isInsertingCellsToTop = true
-        layout.contentSizeWhenInsertingToTop = collectionView.contentSize
-        UIView.performWithoutAnimation { () -> Void in
-            UIView.setAnimationsEnabled(false)
-            self.collectionView.performBatchUpdates({ () -> Void in
-                let range = NSRange.init(location: 0, length: newMonths)
-                self.collectionView.insertSections(NSIndexSet(indexesInRange: range))
-                }) { (finished) -> Void in
-                    UIView.setAnimationsEnabled(true)
-                    CATransaction.commit()
-                    self.loadingMore = false
-            }
-        }
-    }
+//
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        if loadingMore || scrollView.contentOffset.y >= 0 {
+//            return
+//        }
+//        self.loadingMore = true
+//        let newMonths = self.calendarDataSource.loadMoreDates()
+//        if newMonths == 0 {
+//            return
+//        }
+//        CATransaction.begin()
+//        CATransaction.setDisableActions(true)
+//        let layout = collectionView.collectionViewLayout as! CalendarLayout
+//        layout.isInsertingCellsToTop = true
+//        layout.contentSizeWhenInsertingToTop = collectionView.contentSize
+//        UIView.performWithoutAnimation { () -> Void in
+//            UIView.setAnimationsEnabled(false)
+//            self.collectionView.performBatchUpdates({ () -> Void in
+//                let range = NSRange.init(location: 0, length: newMonths)
+//                self.collectionView.insertSections(NSIndexSet(indexesInRange: range))
+//                }) { (finished) -> Void in
+//                    UIView.setAnimationsEnabled(true)
+//                    CATransaction.commit()
+//                    self.loadingMore = false
+//            }
+//        }
+//    }
 
     //STYLING
 

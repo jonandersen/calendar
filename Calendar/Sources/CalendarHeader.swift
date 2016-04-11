@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CalendarMonthHeader: UICollectionReusableView {
+class CalendarHeader: UICollectionReusableView {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    static let identifer = "MonthHeader"
+    static let reuseIdentifier: String = "CalendarHeader"
     static let height: CGFloat = 34.0
 }
