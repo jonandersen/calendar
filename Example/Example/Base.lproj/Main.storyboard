@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tla-D5-bOs">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Title-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knh-5H-oxr" customClass="Calendar" customModule="Calendar">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="knh-5H-oxr" secondAttribute="trailing" id="5wT-TN-i67"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="knh-5H-oxr" secondAttribute="bottom" id="8PP-GY-a7P"/>
+                            <constraint firstItem="knh-5H-oxr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="VzQ-1w-wh1"/>
+                            <constraint firstItem="knh-5H-oxr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bMu-Tw-fbK"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Title" id="rDx-uV-ECZ">
+                        <barButtonItem key="leftBarButtonItem" title="Up" id="Ju3-2e-hZk">
+                            <connections>
+                                <action selector="minimizePressed:" destination="BYZ-38-t0r" id="UcN-km-yrh"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Down" id="x4e-HT-zUB">
+                            <connections>
+                                <action selector="expandPressed:" destination="BYZ-38-t0r" id="IPR-1Q-fXQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="calendarView" destination="knh-5H-oxr" id="RWZ-fu-OZc"/>
+                        <outlet property="expandButton" destination="x4e-HT-zUB" id="CHc-Pr-myV"/>
+                        <outlet property="minimize" destination="Ju3-2e-hZk" id="otw-bh-mR9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1377" y="483"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Q7p-rf-cKP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Tla-D5-bOs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4oE-Ol-Nbw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="fDq-Ys-QUe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e63-xA-Idy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="445" y="-209"/>
+        </scene>
+    </scenes>
+</document>

@@ -14,6 +14,7 @@ public class CalendarDateCell: UICollectionViewCell {
     @IBOutlet public weak var circleView: UIView!
     @IBOutlet public  weak var imageView: UIImageView!
     private let circleRatio: CGFloat = 0.9
+    var calendarDate: CalendarDate = CalendarDate.empty()
 
     public override func awakeFromNib() {
         circleView.backgroundColor = UIColor(red: 0x33/256, green: 0xB3/256, blue: 0xB3/256, alpha: 0.5)
