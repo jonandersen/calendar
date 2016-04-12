@@ -1,17 +1,10 @@
-//
-//  CalendarMonthCell.swift
-//  Calendar
-//
-//  Created by Jon Andersen on 4/10/16.
-//  Copyright © 2016 Andersen. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-class CalendarMonthCell: UICollectionViewCell {
+public class CalendarMonthCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "CalendarMonthCell"
+    var calendarDate: CalendarDate = CalendarDate.empty()
     
     @IBOutlet weak var label: UILabel!
     

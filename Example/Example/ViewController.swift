@@ -18,9 +18,19 @@ class ViewController: UIViewController, CalendarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.delegate = self
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        calendarView.scrollToDate()
+    }
+    
     @IBAction func minimizePressed(sender: UIBarButtonItem) {
         calendarView.showYearView()
     }
@@ -33,8 +43,17 @@ class ViewController: UIViewController, CalendarDelegate {
     func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
         
     }
-    func calendarDidSelectCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
-        
+
+
+    func calendarDidSelectDayCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
+        NSLog("Selected Day: \(calendarDate.day)")
+
+    }
+
+    func calendarDidSelectMonthCell(cell: CalendarMonthCell, calendarDate: CalendarDate) {
+        NSLog("Selected Month: \(calendarDate.month)")
+        calendarView.scrollToDate()
+
     }
 
 

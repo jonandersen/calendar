@@ -12,7 +12,7 @@ class CalendarDataSourceManager {
 
     func numberOfMonths() -> Int {
         let months = NSDate().monthsFrom(startDate)
-        return months + 2
+        return months + 3 //Why 3? 
     }
 
     func currentDateIndex() -> NSIndexPath {

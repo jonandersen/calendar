@@ -10,23 +10,33 @@ import Foundation
 
 public protocol CalendarDelegate : class {
     func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate)
-    func calendarDidSelectCell(cell: CalendarDateCell, calendarDate: CalendarDate)
+    func calendarDidSelectDayCell(cell: CalendarDateCell, calendarDate: CalendarDate)
+    func calendarDidSelectMonthCell(cell: CalendarMonthCell, calendarDate: CalendarDate)
+
 }
 
-//public enum CalendarMode{
-//    cas
-//}
+enum CalendarMode{
+    case Month
+    case Day
+}
 
 public class Calendar: UIView {
     public let calendarCollectionView: UICollectionView!
     private let calendarMonthCollectionView: UICollectionView!
+    private var currentMode = CalendarMode.Day
 
-    private  var calendarManager: CalendarManager!
-    private  var calendarMonthManager: CalendarMonthManager!
+    private  var calendarDayDataSource: CalendarDayDataSource!
+    private  var calendarMonthDataSource: CalendarMonthDataSource!
+    private  var calendarDayDelegate: CalendarCollectionViewDelegate!
+    private  var calendarMonthDelegate: CalendarCollectionViewDelegate!
+
 
     public weak var delegate: CalendarDelegate? {
         didSet {
-            calendarManager.delegate = delegate
+            calendarDayDataSource.delegate = delegate
+            calendarDayDelegate.delegate = delegate
+            calendarMonthDelegate.delegate = delegate
+            
         }
     }
 
@@ -59,6 +69,7 @@ public class Calendar: UIView {
     }
     
     public func showYearView() {
+        currentMode = .Month
         self.calendarMonthCollectionView.hidden = false
         UIView.animateWithDuration(0.3, animations: {
             self.calendarCollectionView.alpha = 0.0
@@ -69,6 +80,7 @@ public class Calendar: UIView {
     }
     
     public func showMonthView() {
+        currentMode = .Day
         self.calendarCollectionView.hidden = false
         UIView.animateWithDuration(0.3, animations: {
             self.calendarCollectionView.alpha = 1.0
@@ -85,7 +97,7 @@ public class Calendar: UIView {
         
         self.addSubview(calendarCollectionView)
         self.addSubview(calendarMonthCollectionView)
-
+        calendarCollectionView.contentInset = UIEdgeInsetsZero
 
         calendarCollectionView.backgroundColor = self.backgroundColor
         calendarMonthCollectionView.backgroundColor = self.backgroundColor
@@ -101,39 +113,60 @@ public class Calendar: UIView {
         self.calendarCollectionView.registerNib(cellNib,
             forCellWithReuseIdentifier: CalendarDateCell.identifier)
 
-        let headerNib = UINib(nibName: CalendarHeader.reuseIdentifier, bundle: calendarResourceBundle)
-        self.calendarCollectionView.registerNib(headerNib,
+        let dayHeaderNib = UINib(nibName: CalendarDayHeader.reuseIdentifier, bundle: calendarResourceBundle)
+        self.calendarCollectionView.registerNib(dayHeaderNib,
             forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
-            withReuseIdentifier: CalendarHeader.reuseIdentifier)
-        self.calendarMonthCollectionView.registerNib(headerNib,
+            withReuseIdentifier: CalendarDayHeader.reuseIdentifier)
+        let monthHeaderNib = UINib(nibName: CalendarMonthHeader.reuseIdentifier, bundle: calendarResourceBundle)
+
+        
+        self.calendarMonthCollectionView.registerNib(monthHeaderNib,
                                                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
-                                                withReuseIdentifier: CalendarHeader.reuseIdentifier)
+                                                withReuseIdentifier: CalendarMonthHeader.reuseIdentifier)
         if let layout = self.calendarCollectionView.collectionViewLayout as? CalendarLayout {
             layout.headerReferenceSize = CGSize(width: self.frame.width,
-                height: CalendarHeader.height)
+                height: CalendarDayHeader.height)
         }
         
         if let layout = self.calendarMonthCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.headerReferenceSize = CGSize(width: self.frame.width,
-                                                height: CalendarHeader.height)
+                                                height: CalendarMonthHeader.height)
         }
         
         let calendarMonthCell = UINib(nibName: "CalendarMonthCell", bundle: calendarResourceBundle)
         self.calendarMonthCollectionView.registerNib(calendarMonthCell,
                                                 forCellWithReuseIdentifier: CalendarMonthCell.reuseIdentifier)
 
-        calendarManager = CalendarManager(collectionView: self.calendarCollectionView,
-            calendarDataSource: calendarDataSource)
+        calendarDayDataSource = CalendarDayDataSource(calendarDataSource: calendarDataSource)
+        calendarMonthDataSource = CalendarMonthDataSource()
+        calendarDayDelegate = CalendarCollectionViewDelegate(itemsPerRow: 7)
+        calendarMonthDelegate = CalendarCollectionViewDelegate(itemsPerRow: 3)
         
-        calendarMonthManager = CalendarMonthManager(collectionView: self.calendarMonthCollectionView)
+        
+        self.calendarCollectionView.dataSource = calendarDayDataSource
+        self.calendarCollectionView.delegate = calendarDayDelegate
+        
+        self.calendarMonthCollectionView.dataSource = calendarMonthDataSource
+        self.calendarMonthCollectionView.delegate = calendarMonthDelegate
+        
     }
+    
+    
 
     public func scrollToDate(calendarDate: CalendarDate) {
-        self.calendarManager.scrollToDate(calendarDate)
-    }
+        switch currentMode {
+        case .Day:
+            let index = self.calendarDayDataSource.indexForDate(calendarDate)
+            calendarCollectionView.scrollToItemAtIndexPath(index, atScrollPosition: .CenteredVertically, animated: false)
+        case .Month:
+            let index = self.calendarMonthDataSource.indexForDate(calendarDate)
+            calendarMonthCollectionView.scrollToItemAtIndexPath(index, atScrollPosition: .CenteredVertically, animated: false)
+        }
 
+    }
+    
     public func scrollToDate() {
         let calendarDate = CalendarDate.fromDate(NSDate())
-        self.calendarManager.scrollToDate(calendarDate)
+        self.scrollToDate(calendarDate)
     }
 }

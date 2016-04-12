@@ -10,44 +10,43 @@ import Foundation
 
 
 
-class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
+class CalendarDayDataSource: NSObject, UICollectionViewDataSource {
     private let calendarDataSource: CalendarDataSourceManager
     private var loadingMore = false
     private let numberOfItemsPerRow: CGFloat = 7
-    private let collectionView: UICollectionView
     private let dateFormatter = NSDateFormatter()
 
     weak var delegate: CalendarDelegate?
 
-    required init(collectionView: UICollectionView, calendarDataSource: CalendarDataSourceManager) {
+    required init(calendarDataSource: CalendarDataSourceManager) {
         self.calendarDataSource = calendarDataSource
-        self.collectionView = collectionView
         super.init()
         dateFormatter.dateFormat = "EEE, MM d"
-        collectionView.dataSource = self
-        collectionView.delegate = self
     }
 
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,
         atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(
             kind,
-            withReuseIdentifier: CalendarHeader.reuseIdentifier,
-            forIndexPath: indexPath) as! CalendarHeader
+            withReuseIdentifier: CalendarDayHeader.reuseIdentifier,
+            forIndexPath: indexPath) as! CalendarDayHeader
         let calendarDate = calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: 12)
         let hidden = (0...6)
             .map { self.calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: $0) }
             .filter { $0.isFromAnotherMonth }
-        let padding: CGFloat = CGFloat(hidden.count) * (collectionView.frame.width / numberOfItemsPerRow)
-        header.monthLabel.text = "\(dateFormatter.shortMonthSymbols[calendarDate.month - 1]) \(calendarDate.year)"
-        header.monthLabel.textColor = UIColor.blackColor()
-        header.leadingConstraint.constant = padding
+        let padding: CGFloat = CGFloat(hidden.count) * ((collectionView.frame.width / numberOfItemsPerRow) + 4)
+        header.monthLabel.text = "\(dateFormatter.shortMonthSymbols[calendarDate.month - 1])"
+        header.leadingConstraint.constant = max(padding, 8.0)
+        if calendarDate.isThisMonth() {
+            header.monthLabel.textColor = Colors.headerCurrentTextColor
+        } else {
+            header.monthLabel.textColor = Colors.headerTextColor
+        }
         return header
     }
-
-    func scrollToDate(calendarDate: CalendarDate) {
-        let index = calendarDataSource.indexForDate(calendarDate)
-        collectionView.scrollToItemAtIndexPath(index, atScrollPosition: .CenteredVertically, animated: false)
+    
+    func indexForDate(calendarDate: CalendarDate) -> NSIndexPath {
+        return calendarDataSource.indexForDate(calendarDate)
     }
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -70,48 +69,13 @@ class CalendarManager: NSObject, UICollectionViewDelegate, UICollectionViewDataS
         } else {
             cell.hidden = false
         }
+        cell.calendarDate = calendarDate
         delegate?.calendarBuildCell(cell, calendarDate: calendarDate)
         cell.accessibilityIdentifier = calendarDate.identifier()
         CATransaction.commit()
         return cell
     }
-
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CalendarDateCell {
-            let calendarDate = calendarDataSource.calendarDateForMonth(indexPath.section, dayIndex: indexPath.item)
-            delegate?.calendarDidSelectCell(cell, calendarDate: calendarDate)
-        }
-    }
-
-    //MARK : SCROLL
-//
-//    func scrollViewDidScroll(scrollView: UIScrollView) {
-//        if loadingMore || scrollView.contentOffset.y >= 0 {
-//            return
-//        }
-//        self.loadingMore = true
-//        let newMonths = self.calendarDataSource.loadMoreDates()
-//        if newMonths == 0 {
-//            return
-//        }
-//        CATransaction.begin()
-//        CATransaction.setDisableActions(true)
-//        let layout = collectionView.collectionViewLayout as! CalendarLayout
-//        layout.isInsertingCellsToTop = true
-//        layout.contentSizeWhenInsertingToTop = collectionView.contentSize
-//        UIView.performWithoutAnimation { () -> Void in
-//            UIView.setAnimationsEnabled(false)
-//            self.collectionView.performBatchUpdates({ () -> Void in
-//                let range = NSRange.init(location: 0, length: newMonths)
-//                self.collectionView.insertSections(NSIndexSet(indexesInRange: range))
-//                }) { (finished) -> Void in
-//                    UIView.setAnimationsEnabled(true)
-//                    CATransaction.commit()
-//                    self.loadingMore = false
-//            }
-//        }
-//    }
-
+    
     //STYLING
 
     func collectionView(collectionView: UICollectionView,
