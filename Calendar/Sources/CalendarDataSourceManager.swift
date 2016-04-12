@@ -1,7 +1,7 @@
 import Foundation
 
 class CalendarDataSourceManager {
-    private let startDate = NSDate(timeIntervalSince1970: 0)
+    private let startDate: NSDate
     private let calendar = NSCalendar.currentCalendar()
     private let dateManager: DateManager = DateManager()
 
@@ -9,10 +9,13 @@ class CalendarDataSourceManager {
         return calendar.components([.Day, .Month, .Year], fromDate: date)
     }
 
+    init(startDate: NSDate = NSDate(timeIntervalSince1970: 0)) {
+        self.startDate = startDate
+    }
 
     func numberOfMonths() -> Int {
         let months = NSDate().monthsFrom(startDate)
-        return months + 3 //Why 3? 
+        return months + 3//Why 3?
     }
 
     func currentDateIndex() -> NSIndexPath {

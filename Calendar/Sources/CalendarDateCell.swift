@@ -26,7 +26,6 @@ public class CalendarDateCell: UICollectionViewCell {
         self.imageView.hidden = true
         self.textLabel.textColor = UIColor.darkTextColor()
     }
-    
 
     public override func layoutSubviews() {
         super.layoutSubviews()

@@ -25,23 +25,21 @@ class ViewController: UIViewController, CalendarDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         calendarView.scrollToDate()
     }
-    
+
     @IBAction func minimizePressed(sender: UIBarButtonItem) {
         calendarView.showYearView()
     }
     @IBAction func expandPressed(sender: UIBarButtonItem) {
         calendarView.showMonthView()
-
     }
 
-    
     func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
-        
+
     }
 
 
@@ -58,4 +56,3 @@ class ViewController: UIViewController, CalendarDelegate {
 
 
 }
-

@@ -41,16 +41,16 @@ class DateManager {
 }
 
 extension NSDate {
-    func yearsFrom(date:NSDate) -> Int{
+    func yearsFrom(date: NSDate) -> Int {
         return NSCalendar.currentCalendar().components(.Year, fromDate: date, toDate: self, options: []).year
     }
-    func monthsFrom(date:NSDate) -> Int{
+    func monthsFrom(date: NSDate) -> Int {
         return NSCalendar.currentCalendar().components(.Month, fromDate: date, toDate: self, options: []).month
     }
-    func weeksFrom(date:NSDate) -> Int{
+    func weeksFrom(date: NSDate) -> Int {
         return NSCalendar.currentCalendar().components(.WeekOfYear, fromDate: date, toDate: self, options: []).weekOfYear
     }
-    func daysFrom(date:NSDate) -> Int{
+    func daysFrom(date: NSDate) -> Int {
         return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self, options: []).day
     }
 }

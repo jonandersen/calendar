@@ -19,13 +19,7 @@ class CalendarDataSourceManagerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        sut = CalendarDataSourceManager(today: calendarDate.date)
-    }
-
-
-    func testDatesWithLargeBatchSize() {
-        expect(self.sut.fromDate).to(equal(CalendarDate(year: 2015, month: 1, day: 15)))
-        expect(self.sut.toDate).to(equal(CalendarDate(year: 2016, month: 2, day: 15)))
+        sut = CalendarDataSourceManager(startDate: calendarDate.date)
     }
 
     func testNumberOfMonths() {

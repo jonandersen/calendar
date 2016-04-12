@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 class CalendarDayDataSource: NSObject, UICollectionViewDataSource {
     private let calendarDataSource: CalendarDataSourceManager
     private var loadingMore = false
@@ -44,7 +42,7 @@ class CalendarDayDataSource: NSObject, UICollectionViewDataSource {
         }
         return header
     }
-    
+
     func indexForDate(calendarDate: CalendarDate) -> NSIndexPath {
         return calendarDataSource.indexForDate(calendarDate)
     }
@@ -74,39 +72,5 @@ class CalendarDayDataSource: NSObject, UICollectionViewDataSource {
         cell.accessibilityIdentifier = calendarDate.identifier()
         CATransaction.commit()
         return cell
-    }
-    
-    //STYLING
-
-    func collectionView(collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            let size: CGFloat
-            if isLandscape {
-                size = collectionView.frame.width / (numberOfItemsPerRow + 3.0)
-            } else {
-                size = collectionView.frame.width / (numberOfItemsPerRow + 2.0)
-            }
-            return CGSize(width: size, height: size)
-        } else {
-            let size = collectionView.frame.width / numberOfItemsPerRow
-            return CGSize(width: size, height: size)
-        }
-    }
-
-    func collectionView(collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-
-    func collectionView(collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-
-    func collectionView(collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
     }
 }
