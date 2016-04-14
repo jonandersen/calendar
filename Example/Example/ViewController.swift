@@ -41,6 +41,10 @@ class ViewController: UIViewController, CalendarDelegate {
     func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
 
     }
+    
+    func calendarDateChanged(calendarDate: CalendarDate) {
+        self.title = "\(calendarDate.year)"
+    }
 
 
     func calendarDidSelectDayCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
@@ -50,6 +54,7 @@ class ViewController: UIViewController, CalendarDelegate {
 
     func calendarDidSelectMonthCell(cell: CalendarMonthCell, calendarDate: CalendarDate) {
         NSLog("Selected Month: \(calendarDate.month)")
+        calendarView.showMonthView()
         calendarView.scrollToDate()
 
     }

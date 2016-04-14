@@ -12,7 +12,7 @@ public protocol CalendarDelegate : class {
     func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate)
     func calendarDidSelectDayCell(cell: CalendarDateCell, calendarDate: CalendarDate)
     func calendarDidSelectMonthCell(cell: CalendarMonthCell, calendarDate: CalendarDate)
-
+    func calendarDateChanged(calendarDate: CalendarDate)
 }
 
 enum CalendarMode {
@@ -66,24 +66,33 @@ public class Calendar: UIView {
         self.calendarMonthCollectionView.frame = self.frame
 
     }
-
+    
     public func showYearView() {
+        if currentMode == .Month {
+            return
+        }
         currentMode = .Month
         self.calendarMonthCollectionView.hidden = false
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animateWithDuration(0.33, animations: { 
+            self.calendarCollectionView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001);
             self.calendarCollectionView.alpha = 0.0
             self.calendarMonthCollectionView.alpha = 1.0
         }) { _ in
             self.calendarCollectionView.hidden = true
         }
     }
-
+    
     public func showMonthView() {
+        if currentMode == .Day {
+            return
+        }
         currentMode = .Day
         self.calendarCollectionView.hidden = false
+        calendarCollectionView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001);
         UIView.animateWithDuration(0.3, animations: {
             self.calendarCollectionView.alpha = 1.0
             self.calendarMonthCollectionView.alpha = 0.0
+            self.calendarCollectionView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
         }) { _ in
             self.calendarMonthCollectionView.hidden = true
         }
@@ -115,8 +124,8 @@ public class Calendar: UIView {
 
         calendarDayDataSource = CalendarDayDataSource(calendarDataSource: calendarDataSource)
         calendarMonthDataSource = CalendarMonthDataSource()
-        calendarDayDelegate = CalendarCollectionViewDelegate(itemsPerRow: 7)
-        calendarMonthDelegate = CalendarCollectionViewDelegate(itemsPerRow: 3)
+        calendarDayDelegate = CalendarCollectionViewDelegate(collectionView: calendarCollectionView, itemsPerRow: 7)
+        calendarMonthDelegate = CalendarCollectionViewDelegate(collectionView: calendarMonthCollectionView, itemsPerRow: 3)
         self.calendarCollectionView.dataSource = calendarDayDataSource
         self.calendarCollectionView.delegate = calendarDayDelegate
         self.calendarMonthCollectionView.dataSource = calendarMonthDataSource
