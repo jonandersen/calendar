@@ -67,13 +67,14 @@ public class Calendar: UIView {
 
     }
     
-    public func showYearView() {
+    public func showYearView(calendarDate: CalendarDate?) {
         if currentMode == .Month {
             return
         }
         currentMode = .Month
         self.calendarMonthCollectionView.hidden = false
-        UIView.animateWithDuration(0.33, animations: { 
+        scrollToDate(calendarDate)
+        UIView.animateWithDuration(0.33, animations: {
             self.calendarCollectionView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001);
             self.calendarCollectionView.alpha = 0.0
             self.calendarMonthCollectionView.alpha = 1.0
@@ -82,11 +83,12 @@ public class Calendar: UIView {
         }
     }
     
-    public func showMonthView() {
+    public func showMonthView(calendarDate: CalendarDate?) {
         if currentMode == .Day {
             return
         }
         currentMode = .Day
+        scrollToDate(calendarDate)
         self.calendarCollectionView.hidden = false
         calendarCollectionView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001);
         UIView.animateWithDuration(0.3, animations: {
@@ -132,7 +134,9 @@ public class Calendar: UIView {
         self.calendarMonthCollectionView.delegate = calendarMonthDelegate
     }
 
-    public func scrollToDate(calendarDate: CalendarDate) {
+    public func scrollToDate(calendarDate: CalendarDate? = nil) {
+        let calendarDate = calendarDate ?? CalendarDate.fromDate(NSDate())
+        self.delegate?.calendarDateChanged(calendarDate)
         switch currentMode {
         case .Day:
             let index = self.calendarDayDataSource.indexForDate(calendarDate)
@@ -141,13 +145,9 @@ public class Calendar: UIView {
             let index = self.calendarMonthDataSource.indexForDate(calendarDate)
             calendarMonthCollectionView.scrollToItemAtIndexPath(index, atScrollPosition: .CenteredVertically, animated: false)
         }
-
     }
 
-    public func scrollToDate() {
-        let calendarDate = CalendarDate.fromDate(NSDate())
-        self.scrollToDate(calendarDate)
-    }
+
 
     private func configureDayCollectionView(bundle: NSBundle) {
         let cellNib = UINib(nibName: "CalendarDateCell", bundle: bundle)

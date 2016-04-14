@@ -35,9 +35,8 @@ class CalendarMonthDataSource: NSObject, UICollectionViewDataSource {
     }
 
     func indexForDate(calendarDate: CalendarDate) -> NSIndexPath {
-        let months = NSDate().monthsFrom(startDate)
-        let years = Int(ceil(Double(months) / 12))
-        return NSIndexPath(forItem: 4, inSection: years - 1)
+        let year = abs(calendarDate.date.yearsFrom(startDate))
+        return NSIndexPath(forItem: 6, inSection: year)
     }
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

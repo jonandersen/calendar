@@ -32,18 +32,20 @@ class ViewController: UIViewController, CalendarDelegate {
     }
 
     @IBAction func minimizePressed(sender: UIBarButtonItem) {
-        calendarView.showYearView()
+        calendarView.showYearView(currentCalendarDate)
     }
     @IBAction func expandPressed(sender: UIBarButtonItem) {
-        calendarView.showMonthView()
+        
     }
 
     func calendarBuildCell(cell: CalendarDateCell, calendarDate: CalendarDate) {
 
     }
     
+    private var currentCalendarDate: CalendarDate?
     func calendarDateChanged(calendarDate: CalendarDate) {
         self.title = "\(calendarDate.year)"
+        self.currentCalendarDate = calendarDate
     }
 
 
@@ -54,9 +56,7 @@ class ViewController: UIViewController, CalendarDelegate {
 
     func calendarDidSelectMonthCell(cell: CalendarMonthCell, calendarDate: CalendarDate) {
         NSLog("Selected Month: \(calendarDate.month)")
-        calendarView.showMonthView()
-        calendarView.scrollToDate()
-
+        calendarView.showMonthView(calendarDate)
     }
 
 
