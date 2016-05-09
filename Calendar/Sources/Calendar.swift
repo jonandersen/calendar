@@ -113,7 +113,8 @@ public class Calendar: UIView {
 
         calendarCollectionView.showsHorizontalScrollIndicator = false
         calendarCollectionView.showsVerticalScrollIndicator = false
-        let calendarDataSource = CalendarDataSourceManager()
+        let startDate = CalendarDate(year: 2000, month: 1, day: 1).date
+        let calendarDataSource = CalendarDataSourceManager(startDate: startDate)
         let calendarFrameworkBundle = NSBundle(forClass: Calendar.self)
         let calendarResourceBundle: NSBundle
         if let bundlePath = calendarFrameworkBundle.pathForResource("Calendar", ofType: "bundle") {
@@ -125,7 +126,7 @@ public class Calendar: UIView {
         self.configuredMonthCollectionView(calendarResourceBundle)
 
         calendarDayDataSource = CalendarDayDataSource(calendarDataSource: calendarDataSource)
-        calendarMonthDataSource = CalendarMonthDataSource()
+        calendarMonthDataSource = CalendarMonthDataSource(startDate: startDate)
         calendarDayDelegate = CalendarCollectionViewDelegate(collectionView: calendarCollectionView, itemsPerRow: 7)
         calendarMonthDelegate = CalendarCollectionViewDelegate(collectionView: calendarMonthCollectionView, itemsPerRow: 3)
         self.calendarCollectionView.dataSource = calendarDayDataSource

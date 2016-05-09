@@ -10,10 +10,11 @@ import Foundation
 
 
 class CalendarMonthDataSource: NSObject, UICollectionViewDataSource {
-    private let startDate = NSDate(timeIntervalSince1970: 0)
+    private let startDate: NSDate
     private let dateFormatter = NSDateFormatter()
 
-    required override init() {
+    init(startDate : NSDate) {
+        self.startDate = startDate
         super.init()
         dateFormatter.dateFormat = "EEE, MM d"
     }
@@ -61,7 +62,7 @@ class CalendarMonthDataSource: NSObject, UICollectionViewDataSource {
         let year = indexPath.section
         let components = NSDateComponents()
         components.year = year
-        components.month = month + 1
+        components.month = month
         let date = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self.startDate, options: [])!
         return CalendarDate.fromDate(date)
     }

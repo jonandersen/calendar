@@ -13,7 +13,7 @@ public class CalendarDateCell: UICollectionViewCell {
     @IBOutlet public weak var textLabel: UILabel!
     @IBOutlet public weak var circleView: UIView!
     @IBOutlet public  weak var imageView: UIImageView!
-    private let circleRatio: CGFloat = 0.9
+    private let circleRatio: CGFloat = 1.0
     var calendarDate: CalendarDate = CalendarDate.empty()
 
     public override func awakeFromNib() {

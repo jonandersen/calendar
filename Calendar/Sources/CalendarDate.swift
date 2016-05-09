@@ -39,7 +39,7 @@ public struct CalendarDate {
 
     public static func fromDate(date: NSDate, isFromAnotherMonth: Bool = false) -> CalendarDate {
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Year, .Month, .WeekOfYear, .Day], fromDate: date)
+        let components = calendar.components([.Year, .Month, .WeekOfYear, .Day, .Second], fromDate: date)
         return CalendarDate(
             year: components.year,
             month: components.month,

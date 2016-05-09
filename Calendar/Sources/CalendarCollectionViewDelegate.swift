@@ -63,7 +63,6 @@ class CalendarCollectionViewDelegate: NSObject, UICollectionViewDelegate {
             return
         }
         startScroll = scrollView.contentOffset.y
-//        scrollPositionChanged()
     }
     
     private func scrollPositionChanged() {
